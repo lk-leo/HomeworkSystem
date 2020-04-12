@@ -52,15 +52,25 @@ Maven
 
 
 1、确保上面开发环境运行正常
+
 2、恢复数据库
+
 3、打开eclipse,点击按钮File，再点击open project from file system...，点击directory，找到源代码（四个都要导入）所在地址,然后点击finish
+
 4、导入运行环境，右键项目，然后点击bulid path->configure build path..->Libraries，然后导入环境，点击Add Library，然后点击JRE system Library和Server runtime分别导入JRE，Tomcat
+
 5、如果你的Java不是10，就要修改修改项目Java版本：https://jingyan.baidu.com/article/6c67b1d69a59a02787bb1e30.html?qq-pf-to=pcqq.c2c
+
 6、启动zookeeper包下bin/ckserver.cmd
+
 7、/homeworksystem-service/src/main/resources/dbconf.properties文件，修改数据库用户名和密码，如果你的数据库名不叫homeworksystemdatabase就要改jdbcURL数据库名称。
+
 8、运行service，启动程序是/homeworksystem-service/src/main/java/com/homeworksystem/run/Run.java（确保service在dupCheck之前运行，确保dupCheck在web之前运行）
+
 9、运行dupCheck，启动程序是/com.homeworksystem-dupCheck/src/main/java/com/homeworksystem/run/run.java
+
 10、右键单击/homeworkSystem-web/src/main/webapp/index.jsp，有个Run as->Run on server运行，选择Tomcat
+
 11、查看网页是否正常
 
 
@@ -69,11 +79,13 @@ Maven
 
 
 1、确保每台电脑都有导入api项目，其他三个项目只需要选择一个
+
 2、步骤基本与单机一致，不同：多机在启动程序前需要修改
 	/com.homeworksystem-dupCheck/src/main/resources/provider.xml
 	/homeworkSystem-web/src/main/resources/consumer.xml
 	/homeworksystem-service/src/main/resources/ApplicationContext.xml
 	中<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>  IP地址改为zookeeper所在的IP地址
+
 3、其他的部分一致
 
 

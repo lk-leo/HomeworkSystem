@@ -1,7 +1,9 @@
 # HomeworkSystem
 基于SSM、dubbo、Tomcat制作的分布式作业管理系统。
 
+
 目录
+
 1、简介
 2、运行环境
 3、用到的框架
@@ -12,6 +14,8 @@
 
 
 简介
+
+
 这是个Maven项目
 api是接口项目，提供一些基本类例如student类,Teacher类等等，以及接口，例如Service层的接口等等
 service提供查询数据库服务，dupCheck和web可以使用其提供的服务，对数据库进行增删改查
@@ -21,6 +25,8 @@ web建立Tomcat服务器之上，为用户提供可视化的页面，客户的�
 目录/数据库/Mysql.txt存放恢复数据库的sql语句
 
 开发环境
+
+
 java10
 Mysql8.0，其他版本应该也行
 Tomcat8.5，安装教程:https://www.bilibili.com/video/BV1q4411u7mM?p=67
@@ -30,6 +36,8 @@ Maven
 字符集UTF-8
 
 用到的框架
+
+
 1、spring(对象管理、事务控制)
 2、springmvc（拦截和处理用户请求）
 3、mybatis （提供数据库增删改查）
@@ -41,6 +49,8 @@ Maven
 
 
 单机版环境搭建步骤
+
+
 1、确保上面开发环境运行正常
 2、恢复数据库
 3、打开eclipse,点击按钮File，再点击open project from file system...，点击directory，找到源代码（四个都要导入）所在地址,然后点击finish
@@ -56,6 +66,8 @@ Maven
 
 
 多台电脑局域网环境搭建步骤
+
+
 1、确保每台电脑都有导入api项目，其他三个项目只需要选择一个
 2、步骤基本与单机一致，不同：多机在启动程序前需要修改
 	/com.homeworksystem-dupCheck/src/main/resources/provider.xml
@@ -68,6 +80,8 @@ Maven
 
 
 常见问题
+
+
 1、没找到server选项
 https://blog.csdn.net/weixin_43422355/article/details/83309750#commentBox
 

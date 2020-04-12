@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.homeworksystem.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.homeworksystem.bean.Course" >
+    <id column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from courses
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.homeworksystem.bean.Course" >
+    insert into courses (course_id, teacher_id, course_name
+      )
+    values (#{courseId,jdbcType=INTEGER}, #{teacherId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.homeworksystem.bean.Course" >
+    update courses
+    set teacher_id = #{teacherId,jdbcType=VARCHAR},
+      course_name = #{courseName,jdbcType=VARCHAR}
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select course_id, teacher_id, course_name
+    from courses
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <resultMap id="basemap2" type="com.homeworksystem.bean.Course" >
+    <id column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="user_name" property="teacherName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectAll" resultMap="basemap2" >
+    select course_id, course_name,user_name
+    from courses left join teachers on courses.teacher_id=teachers.teacher_id
+  </select>
+  
+  <select id="selectByTeacherId" resultType="com.homeworksystem.bean.Course" >
+    select *
+    from courses
+    where teacher_id=#{teacherId}
+  </select>
+  
+</mapper>

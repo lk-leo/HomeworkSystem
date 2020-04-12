@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<!-- 除了控制器 -->
+	<context:component-scan base-package="com.homeworksystem"></context:component-scan>
+
+	<!-- 1、数据源 -->
+	<context:property-placeholder location="classpath:dbconf.properties"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="jdbcUrl" value="${jdbcUrl}"></property>
+		<property name="driverClass" value="${driverClass}"></property>
+	</bean>
+	
+	<!-- 2、配置mybatis操作数据库 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 根据配置文件获取sqlsessionFactory -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 指定xml映射文件的地址 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+	</bean>
+	<!-- 把dao接口实现加入ioc容器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 指定dao接口所在的包 -->
+		<property name="basePackage" value="com.homeworksystem.dao"></property>
+	</bean>
+	
+	<!-- 3、事务控制,配置事务管理器控制数据源 -->
+	 <bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	 	<!-- DataSource要用ref不能用value -->
+	 	<property name="dataSource" ref="dataSource"></property>
+	 </bean>
+	<!-- 4、基于配置，配置事务，方法切入点表达式 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.homeworksystem.service.*.*(..))" id="txPoint"/>
+		<aop:advisor advice-ref="myTX" pointcut-ref="txPoint"/>
+	</aop:config>
+	
+	<!-- 5、配置事务增强、事务属性、事务建议 -->
+	<tx:advice id="myTX" transaction-manager="tm">
+		<!-- 配置事务属性 -->
+		<tx:attributes>
+			<tx:method name="*" rollback-for="java.lang.Exception"/>
+			<tx:method name="get*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	
+	<!-- 1、指定当前服务的名字 -->
+	<dubbo:application name="homeworkSystem-service"></dubbo:application>
+	
+	<!-- 2、指定注册中心的位置 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
+	
+	<!-- 3、指定通信规则 -->
+	<dubbo:protocol name="dubbo" port="20080"></dubbo:protocol>
+	
+	<!-- 4、暴露服务  ref服务真正实现-->
+	<dubbo:service interface="com.homeworksystem.service.CourseService" ref="courseServiceImp"></dubbo:service>
+	<!-- 服务的实现 -->
+	<bean id="courseServiceImp" class="com.homeworksystem.serviceImp.CourseServiceImp"></bean>
+	
+	<dubbo:service interface="com.homeworksystem.service.CurriculaVariableService" ref="curriculaVariableServiceImp"></dubbo:service>
+	<bean id="curriculaVariableServiceImp" class="com.homeworksystem.serviceImp.CurriculaVariableServiceImp"></bean>
+	
+	<dubbo:service interface="com.homeworksystem.service.HomeworkService" ref="homeworkServiceImp"></dubbo:service>
+	<bean id="homeworkServiceImp" class="com.homeworksystem.serviceImp.HomeworkServiceImp"></bean>
+	
+	<dubbo:service interface="com.homeworksystem.service.QuestionService" ref="questionServiceImp"></dubbo:service>
+	<bean id="questionServiceImp" class="com.homeworksystem.serviceImp.QuestionServiceImp"></bean>
+	
+	<dubbo:service interface="com.homeworksystem.service.StudentService" ref="studentServiceImp"></dubbo:service>
+	<bean id="studentServiceImp" class="com.homeworksystem.serviceImp.StudentServiceImp"></bean>
+	
+	<dubbo:service interface="com.homeworksystem.service.TeacherService" ref="teacherServiceImp"></dubbo:service>
+	<bean id="teacherServiceImp" class="com.homeworksystem.serviceImp.TeacherServiceImp"></bean>
+</beans>

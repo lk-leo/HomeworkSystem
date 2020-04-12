@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.homeworksystem.dao.curriculaVariableMapper" >
+  <resultMap id="BaseResultMap" type="com.homeworksystem.bean.CurriculaVariable" >
+    <id column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <id column="course_id" property="courseId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from s_c
+    where student_id = #{studentId,jdbcType=VARCHAR}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.homeworksystem.bean.CurriculaVariable" >
+    insert into s_c (student_id, course_id)
+    values (#{studentId,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select student_id, course_id
+    from s_c
+  </select>
+  
+  <select id="selectByCourseId" resultType="com.homeworksystem.bean.Student">
+  	select students.student_id,user_name,gender
+  	from s_c left join students on students.student_id=s_c.student_id
+  	where course_id=#{courseId}
+  </select>
+  
+  <resultMap type="com.homeworksystem.bean.Course" id="courseMap">
+  	<id column="course_id" property="courseId" jdbcType="INTEGER"/>
+  	<result column="course_name" property="courseName" jdbcType="VARCHAR"/>
+  	<result column="teacher_name" property="teacherName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectByStudentId" resultMap="courseMap">
+  	select *
+  	from my_courses
+  	where student_id=#{studentId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultType="com.homeworksystem.bean.CurriculaVariable">
+  	select *
+  	from s_c
+  	where course_id=#{courseId} and student_id=#{studentId}
+  </select>
+  
+  <delete id="deleteByCourseId" >
+  	delete 
+  	from s_c
+  	where course_id=#{courseId}
+  </delete>
+  
+  <select id="studentNum" resultType="java.lang.Integer">
+  	select count(*)
+  	from s_c
+  	where course_id=#{courseId}
+  </select>
+  
+</mapper>

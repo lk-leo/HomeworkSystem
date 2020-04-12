@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.homeworksystem.dao.HomeworkMapper" >
+  <resultMap id="BaseResultMap" type="com.homeworksystem.bean.Homework" >
+    <id column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <id column="question_id" property="questionId" jdbcType="INTEGER" />
+    <result column="homework" property="homework" jdbcType="LONGVARCHAR" />
+    <result column="repeatability" property="repeatability" jdbcType="INTEGER"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from homeworks
+    where student_id = #{studentId,jdbcType=VARCHAR}
+      and question_id = #{questionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.homeworksystem.bean.Homework" >
+    insert into homeworks (student_id, question_id, homework
+      )
+    values (#{studentId,jdbcType=VARCHAR}, #{questionId,jdbcType=INTEGER}, #{homework,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.homeworksystem.bean.Homework" >
+    update homeworks
+    set homework = #{homework,jdbcType=LONGVARCHAR}
+    where student_id = #{studentId,jdbcType=VARCHAR}
+      and question_id = #{questionId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select student_id, question_id, homework,repeatability
+    from homeworks
+    where student_id = #{studentId,jdbcType=VARCHAR}
+      and question_id = #{questionId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select student_id, question_id, homework,repeatability
+    from homeworks
+  </select>
+  
+  <select id="selectByQuestionId" resultType="com.homeworksystem.bean.Homework">
+  	select homeworks.student_id, question_id, homework,user_name,score,repeatability
+  	from homeworks left join students on homeworks.student_id=students.student_id
+  	where question_id=#{questionId}
+  </select>
+  
+  <select id="selectScore" resultType="java.lang.Integer">
+  	select score
+  	from homeworks
+  	where question_id=#{questionId} and student_id=#{studentId}
+  </select>
+  
+  <update id="updateScore">
+  	update homeworks
+  	set score=#{score}
+  	where question_id=#{questionId} and student_id=#{studentId}
+  </update>
+  
+  <select id="selectNumByQuestionId" resultType="Integer">
+  	select count(*)
+  	from homeworks
+  	where question_id=#{questionId}
+  </select>
+  
+  <update id="updateRepeatability">
+  	update homeworks
+  	set repeatability=
+  	<foreach collection="homeworks" item="item" separator=" " open="case" close="end">
+  		when question_id=#{item.questionId} and student_id=#{item.studentId} then #{item.repeatability}
+  	</foreach>
+  	where (question_id,student_id) in
+  	<foreach collection="homeworks" item="item" separator="," open="(" close=")">
+  		(#{item.questionId},#{item.studentId})
+  	</foreach>
+  </update>
+</mapper>

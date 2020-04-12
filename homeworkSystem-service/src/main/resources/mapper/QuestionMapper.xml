@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.homeworksystem.dao.QuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.homeworksystem.bean.Question" >
+    <id column="question_id" property="questionId" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="question" property="question" jdbcType="LONGVARCHAR"/>
+    <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
+    <result column="dup_check" property="dupCheck" jdbcType="INTEGER"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from questions
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.homeworksystem.bean.Question" >
+    insert into questions ( course_id, question ,deadline
+      )
+    values ( #{courseId,jdbcType=INTEGER}, #{question,jdbcType=LONGVARCHAR},#{deadline,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.homeworksystem.bean.Question" >
+    update questions
+    set course_id = #{courseId,jdbcType=INTEGER},
+      question = #{question,jdbcType=LONGVARCHAR},
+      deadline= #{deadline,jdbcType=TIMESTAMP}
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select question_id, course_id, question ,deadline,dup_check
+    from questions
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select question_id, course_id, question ,deadline,dup_check
+    from questions
+  </select>
+  <!-- returnType要全类名 -->
+  <select id="selectByCourseId" resultMap="BaseResultMap">
+  	select question_id, course_id, question ,deadline,dup_check
+  	from questions
+  	where course_id=#{courseId}
+  </select>
+  
+  <update id="updateDupCheck">
+  	update questions
+  	set dup_check=#{dupCheck}
+  	where question_id=#{questionId}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="homeworkSystem-web"></dubbo:application>
+	
+	<dubbo:registry address="zookeeper://127.0.0.1:2181?client=curator"></dubbo:registry>
+	
+	<dubbo:reference interface="com.homeworksystem.service.CourseService" id="courseService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.CurriculaVariableService" id="curriculaVariableService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.HomeworkService" id="homeworkService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.QuestionService" id="questionService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.StudentService" id="studentService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.service.TeacherService" id="teacherService"></dubbo:reference>
+	<dubbo:reference interface="com.homeworksystem.util.DuplicateChecking" id="duplicateChecking"></dubbo:reference>
+	<context:component-scan base-package="com.homeworksystem"></context:component-scan>
+</beans>

@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(45deg,#fff,#fff ) fixed;
+}
+
+.container{
+	position: relative;
+	width: 70rem;
+}
+
+.container img{
+	width:70rem;
+}
+
+.switch span{
+	color:#ccc;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.switch span.active{
+	color:rgb(255,255,255);
+}
+
+.panel{
+	width:30%;
+	margin: 3rem 0 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	
+	display: flex;
+	justify-content: center;
+}
+
+form{
+	width: 12rem;
+	margin: 2rem 0 0;
+}
+
+form .input{
+	position: relative;
+	font-size:20px;
+	opacity:1;
+	height:2.5rem;
+	width:100%;
+	margin: 3rem 0 0;
+	transition: .4s;
+}
+
+.input input{
+	outline: none;
+	width: 100%;
+	border: none;
+	font-size:2.5;
+	border-bottom: .1px solid rgb(0,0,0);
+	background: linear-gradient(10deg,#5988A4, #5789A0) fixed;
+}
+.input:after{
+	content: attr(placeholder);
+	position: absolute;
+	left: 0;
+	top: -20%;
+	font-size: 1.5 rem;
+	color: rgb(255,255,255);
+	transition: .3s;
+}
+.input.focus:after{
+	top: -70%;
+	font-size: 1rem;
+}
+
+.login .input#name,
+.login .input#gender{
+	margin: 0;
+	height: 0;
+	opacity: 0;
+}
+
+form span{
+	display: block;
+	color:rgb(255,255,255);
+	font-size: 0.8;
+	cursor: pointer;
+}
+
+.submit{
+	border:none;
+	margin:2 rem 0 0;
+	width:100%;
+	height: 3.5rem;
+	border-radius: 3rem;
+	background: linear-gradient(90deg, rgb(180,180,180),rgb(255,255,255));
+	cursor:pointer;
+	color: white;
+}

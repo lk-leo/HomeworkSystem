@@ -1,0 +1,120 @@
+@charset "UTF-8";
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #51809C;
+	font-family: "Poppins",sans-serif;
+}
+.welcome{
+	width: 100%;
+	height:20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.welcome h1{
+	color:green;
+}
+h1{
+	position: relative;
+	text-align:center;
+}
+
+.container{
+	width: 80%;
+	height:calc(100vh);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.box{
+	position: relative;
+	width:25%;
+	height:60%;
+	background: #000;
+	box-shadow: 0 30px 30px rgba(0,0,0,.5);
+}
+
+.box .imgBx{
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.box .imgBx img{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	object-fit:cover;
+	transition:0.5s;
+}
+.box:hover .imgBx img{
+	opacity: 0;
+}
+.box .content{
+	position: absolute;
+	bottom: 20px;
+	left:10%;
+	width: 80%;
+	height: 60px;
+	background: #fff;
+	transistion:0.5s;
+	overflow: hidden;
+	
+	padding: :15px;
+	box-sizing: border-box;
+}
+.box:hover .content{
+	width: 100%;
+	height:100%;
+	bottom: 0;
+	left:0;
+	transition:0.5s;
+}
+.box .content h3{
+	margin:0;
+	padding: 0;
+	font-size: 30px;
+}
+.box .content p{
+	margin: 10px 0 0;
+	padding: 0;
+	opacity: 0;
+	line-height: 1.2em;
+	transition:0.5s;
+	text-align: justify;
+	font-size: 20px;
+}
+.box:hover .content p{
+	opacity: 1;
+	transition-delay:0.5s;
+}
+
+.login{
+	width: 100%;
+	height:20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.login h1{
+	color: #fff;
+}
+/* .login{
+	width: 100%;
+	height:20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translate(-50%,-50%);
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+} */

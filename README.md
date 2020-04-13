@@ -2,6 +2,9 @@
 基于SSM、dubbo、Tomcat制作的分布式作业管理系统。
 
 
+
+
+
 目录
 
 1、简介
@@ -15,6 +18,10 @@
 5、多机局域网环境搭建步骤
 
 6、常见问题
+
+
+
+
 
 
 
@@ -45,6 +52,12 @@ Maven
 字符集UTF-8
 
 
+
+
+
+
+
+
 用到的框架
 
 
@@ -56,6 +69,11 @@ Maven
 6、ehcache （Mybatis二级缓存）
 7、zookeeper （dubbo用到的注册中心）
 8、hibernate （数据校验）
+
+
+
+
+
 
 
 单机版环境搭建步骤
@@ -85,6 +103,10 @@ Maven
 
 
 
+
+
+
+
 多台电脑局域网环境搭建步骤
 
 
@@ -97,6 +119,10 @@ Maven
 	中<dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>  IP地址改为zookeeper所在的IP地址
 
 3、其他的部分一致
+
+
+
+
 
 
 

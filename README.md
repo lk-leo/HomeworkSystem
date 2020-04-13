@@ -5,10 +5,15 @@
 目录
 
 1、简介
+
 2、运行环境
+
 3、用到的框架
+
 4、单机版环境搭建步骤
+
 5、多机局域网环境搭建步骤
+
 6、常见问题
 
 
@@ -23,17 +28,22 @@ dupCheck多线程查重，从service中获取作业信息后，利用算法对�
 web建立Tomcat服务器之上，为用户提供可视化的页面，客户的请求由其转发给service和dupCheck
 采用Alibaba的开源项目dubbo实现的分布式系统，其中注册中心是zookeeper
 目录/数据库/Mysql.txt存放恢复数据库的sql语句
-
 开发环境
 
-
 java10
+
 Mysql8.0，其他版本应该也行
+
 Tomcat8.5，安装教程:https://www.bilibili.com/video/BV1q4411u7mM?p=67
+
 zookeeper3.4 安装教程：
+
 eclipse
+
 Maven
+
 字符集UTF-8
+
 
 用到的框架
 
